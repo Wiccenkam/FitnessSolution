@@ -7,6 +7,7 @@ namespace BusinessLogic.Model
     /// <summary>
     /// Gender
     /// </summary>
+    [Serializable]
     public class Gender
     {
         public string Name { get; }

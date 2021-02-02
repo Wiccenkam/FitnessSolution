@@ -7,6 +7,7 @@ namespace BusinessLogic.Model
     /// <summary>
     /// User
     /// </summary>
+    [Serializable]
     public class User
     {
         #region properties

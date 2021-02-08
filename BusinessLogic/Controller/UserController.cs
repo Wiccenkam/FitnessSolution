@@ -8,7 +8,7 @@ using System.Text;
 
 namespace BusinessLogic.Controller
 {
-    public class UserController
+    public class UserController: BaseController
     {
         public List<User> Users { get; }
         public User CurrentUSer { get; }
@@ -38,11 +38,12 @@ namespace BusinessLogic.Controller
         /// </summary>
         public void Save()
         {
-            var binaryFormatter = new BinaryFormatter();
+            Save("User.dat", Users);
+            /*var binaryFormatter = new BinaryFormatter();
             using (var filestream = new FileStream("User.dat", FileMode.OpenOrCreate))
             {
                 binaryFormatter.Serialize(filestream, Users);
-            }
+            }*/
         }
         public void SetNewUserData(string gender, DateTime BirthDay, double weight=1, double height=1)
         {
@@ -54,13 +55,15 @@ namespace BusinessLogic.Controller
                 CurrentUSer.Height = height;
                 Save();
             }
-        }
+        } 
         /// <summary>
         /// Retrieve Saved User List
         /// </summary>
         /// <returns></returns>
         private List<User> GetUsersData()
         {
+            return Load<List<User>>("User.dat")?? new List<User>();
+            /*
             var binaryFormatter = new BinaryFormatter();
             using (var filestream = new FileStream("User.dat", FileMode.OpenOrCreate))
             {
@@ -76,7 +79,7 @@ namespace BusinessLogic.Controller
                 {
                     return new List<User>();
                 }
-            }
+            }*/
            
         }
 

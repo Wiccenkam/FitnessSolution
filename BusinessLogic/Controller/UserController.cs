@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 
@@ -9,32 +10,74 @@ namespace BusinessLogic.Controller
 {
     public class UserController
     {
-        public User User { get; }
-        public UserController(string name, string GenderName, DateTime date, double weight, double height)
+        public List<User> Users { get; }
+        public User CurrentUSer { get; }
+        public bool NewUSer { get; } = false;
+        public UserController(string UserName)
         {
-            var gender = new Gender(GenderName);
-            User = new User(name, gender, date, weight, height);
-            //User = user ?? throw new ArgumentNullException("User cannot be null", nameof(user));
+            if (string.IsNullOrWhiteSpace(UserName))
+            {
+                throw new ArgumentNullException("User name cannot be null or empty", nameof(UserName));
+            }
+
+            Users = GetUsersData();
+
+            CurrentUSer = Users.SingleOrDefault(user => user.Name == UserName);
+
+            if (CurrentUSer == null)
+            {
+                CurrentUSer = new User(UserName);
+                Users.Add(CurrentUSer);
+                NewUSer = true;
+                Save();
+            }
 
         }
+        /// <summary>
+        /// Save User List
+        /// </summary>
         public void Save()
         {
             var binaryFormatter = new BinaryFormatter();
             using (var filestream = new FileStream("User.dat", FileMode.OpenOrCreate))
             {
-                binaryFormatter.Serialize(filestream, User);
+                binaryFormatter.Serialize(filestream, Users);
             }
         }
-        public UserController()
+        public void SetNewUserData(string gender, DateTime BirthDay, double weight=1, double height=1)
+        {
+            if (NewUSer)
+            {
+                CurrentUSer.Gender = new Gender(gender);
+                CurrentUSer.BithDay = BirthDay;
+                CurrentUSer.Weight = weight;
+                CurrentUSer.Height = height;
+                Save();
+            }
+        }
+        /// <summary>
+        /// Retrieve Saved User List
+        /// </summary>
+        /// <returns></returns>
+        private List<User> GetUsersData()
         {
             var binaryFormatter = new BinaryFormatter();
             using (var filestream = new FileStream("User.dat", FileMode.OpenOrCreate))
             {
-                if(binaryFormatter.Deserialize(filestream) is User user)
+                if (filestream == null)
                 {
-                    User = user;
+                    return new List<User>();
+                }
+                if (filestream.Length>0 && binaryFormatter.Deserialize(filestream) is List<User> users)
+                {
+                    return users;
+                }
+                else
+                {
+                    return new List<User>();
                 }
             }
+           
         }
 
     }

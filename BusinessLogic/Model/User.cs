@@ -13,12 +13,14 @@ namespace BusinessLogic.Model
         #region properties
         public string Name { get; }
 
-        public Gender Gender { get; }
-        public DateTime BithDay { get; }
+        public Gender Gender { get; set; }
+        public DateTime BithDay { get; set; }
 
         public double Weight { get; set; }
 
         public double Height { get; set; }
+
+        public int Age { get { DateTime nowDate = DateTime.Today;int age = nowDate.Year - BithDay.Year;if (BithDay > nowDate.AddYears(-age)) age--; return age; } }
         #endregion
         public User (string name, Gender gender ,DateTime date, double weight, double height)
         {
@@ -50,9 +52,18 @@ namespace BusinessLogic.Model
             Weight = weight;
             Height = height;
         }
+        public User (string name)
+        {
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                throw new ArgumentException("User name cannot be null or empty", nameof(name));
+            }
+            Name = name;
+        }
         public override string ToString()
         {
-            return Name;
+            return Name + "" + Age ;
         }
     }
 }
+ 

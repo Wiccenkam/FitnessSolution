@@ -4,6 +4,7 @@ using System.Text;
 
 namespace BusinessLogic.Model
 {
+    [Serializable]
     public class Food
     {
         public string Name { get; }
@@ -16,12 +17,11 @@ namespace BusinessLogic.Model
         private double FatsPerGramm { get { return Fats / 100.0; } }
         private double CarbohydratesPerGramm { get { return Carbohydrates / 100.0; } }
 
-        public Food(string name)
-        {
-            //Todo: Conditions
+        public Food(string name) : this(name, 0, 0, 0, 0) { }
+        
+            
 
-            Name = name;
-        }
+        
         public Food(string name, double fats, double proteins, double calories, double carbohydrates)
         {
             //Todo: Conditions

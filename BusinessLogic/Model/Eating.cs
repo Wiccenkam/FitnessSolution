@@ -5,6 +5,7 @@ using System.Text;
 
 namespace BusinessLogic.Model
 {
+    [Serializable]
     /// <summary>
     /// ingestion
     /// </summary>

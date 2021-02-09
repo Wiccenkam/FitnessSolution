@@ -1,4 +1,5 @@
 ﻿using BusinessLogic.Controller;
+using BusinessLogic.Model;
 using System;
 
 namespace Api
@@ -14,6 +15,7 @@ namespace Api
             var name = Console.ReadLine();
 
             var userController = new UserController(name);
+            var eatingController = new EatingController(userController.CurrentUSer);
 
             if (userController.NewUSer)
             {
@@ -33,9 +35,36 @@ namespace Api
                 userController.SetNewUserData(gender, birthday, weight, height);
             }
             Console.WriteLine(userController.CurrentUSer);
-            
+
+            Console.WriteLine("Type of action");
+
+            Console.WriteLine("E - enter ingestion");
+            var key = Console.ReadKey();
+            if (key.Key == ConsoleKey.E)
+            {
+                var foods = EnterEating();
+                eatingController.Add(foods.food,foods.weight);
+                foreach(var item in eatingController.Eating.Foods)
+                {
+                    Console.WriteLine($"{item.Key}-{item.Value}");
+                }
+            }
+            Console.ReadLine();
         }
 
+        private static (Food food,double weight) EnterEating()
+        {
+            Console.WriteLine("Enter name of food");
+            var food = Console.ReadLine();
+            var calories = DoubleParse("calories");
+            var prots = DoubleParse("proteins");
+            var fats = DoubleParse("fats");
+            var carbohydrates = DoubleParse("carbohydrates");
+            
+            var weight = DoubleParse("weight od food");
+            var product = new Food(food);
+            return (food:product, weight : weight);
+        }
         private static DateTime DateTimePArse()
         {
             DateTime birthday;

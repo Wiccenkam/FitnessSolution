@@ -10,6 +10,7 @@ namespace BusinessLogic.Controller
 {
     public class UserController: BaseController
     {
+        private  const string User_File_Name = "User.dat";
         public List<User> Users { get; }
         public User CurrentUSer { get; }
         public bool NewUSer { get; } = false;
@@ -38,7 +39,7 @@ namespace BusinessLogic.Controller
         /// </summary>
         public void Save()
         {
-            Save("User.dat", Users);
+            Save(User_File_Name, Users);
             /*var binaryFormatter = new BinaryFormatter();
             using (var filestream = new FileStream("User.dat", FileMode.OpenOrCreate))
             {
@@ -62,7 +63,7 @@ namespace BusinessLogic.Controller
         /// <returns></returns>
         private List<User> GetUsersData()
         {
-            return Load<List<User>>("User.dat")?? new List<User>();
+            return Load<List<User>>(User_File_Name)?? new List<User>();
             /*
             var binaryFormatter = new BinaryFormatter();
             using (var filestream = new FileStream("User.dat", FileMode.OpenOrCreate))

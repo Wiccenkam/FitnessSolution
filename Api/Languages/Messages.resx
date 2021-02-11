@@ -117,10 +117,49 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="BirthDay" xml:space="preserve">
+    <value>Enter your Birth day</value>
+  </data>
+  <data name="Calories" xml:space="preserve">
+    <value>Calories</value>
+  </data>
+  <data name="Carbohydrates" xml:space="preserve">
+    <value>Carbohydrates</value>
+  </data>
+  <data name="CaseA" xml:space="preserve">
+    <value>A - enter action</value>
+  </data>
+  <data name="CaseE" xml:space="preserve">
+    <value>E - enter ingestion</value>
+  </data>
+  <data name="Enter" xml:space="preserve">
+    <value>Enter</value>
+  </data>
+  <data name="EnterGender" xml:space="preserve">
+    <value>Enter  gender :</value>
+  </data>
   <data name="EnterName" xml:space="preserve">
     <value>Enter your name</value>
   </data>
+  <data name="Fats" xml:space="preserve">
+    <value>Fats</value>
+  </data>
+  <data name="Format" xml:space="preserve">
+    <value>Invalid format of </value>
+  </data>
+  <data name="FormatBd" xml:space="preserve">
+    <value>Invalid format of birth day </value>
+  </data>
   <data name="Hello" xml:space="preserve">
     <value>Fitness</value>
+  </data>
+  <data name="Proteins" xml:space="preserve">
+    <value>Proteins</value>
+  </data>
+  <data name="TypeAction" xml:space="preserve">
+    <value>Enter type of Action</value>
+  </data>
+  <data name="weightFood" xml:space="preserve">
+    <value>Weight of food</value>
   </data>
 </root>

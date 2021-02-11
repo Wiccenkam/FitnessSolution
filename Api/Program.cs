@@ -8,13 +8,16 @@ namespace Api
 {
     class Program
     {
+
         static void Main(string[] args)
         {
             var calture = CultureInfo.CreateSpecificCulture("eng");
-            var resourceManager = new ResourceManager("Api.Languages.Messages", typeof(Program).Assembly);
+
+            var   resourceManager = new ResourceManager("Api.Languages.Messages", typeof(Program).Assembly);
+
             Console.WriteLine(resourceManager.GetString("Hello")) ;
 
-            Console.WriteLine("Enter your name");
+            Console.WriteLine(resourceManager.GetString("EnterName"));
 
             var name = Console.ReadLine();
 
@@ -23,7 +26,7 @@ namespace Api
 
             if (userController.NewUSer)
             {
-                Console.Write("Enter gender: ");
+                Console.Write(resourceManager.GetString("EnterGender"));
                 var gender = Console.ReadLine();
 
                 
@@ -31,18 +34,19 @@ namespace Api
                 DateTime birthday = DateTimePArse();
 
 
-                var weight = DoubleParse("weight");
+                var weight = DoubleParse(resourceManager.GetString("Weight"));
 
-                var height = DoubleParse("height");
+                var height = DoubleParse(resourceManager.GetString("Height"));
                 
 
                 userController.SetNewUserData(gender, birthday, weight, height);
             }
             Console.WriteLine(userController.CurrentUSer);
 
-            Console.WriteLine("Type of action");
+            Console.WriteLine(resourceManager.GetString("TypeAction"));
 
             Console.WriteLine("E - enter ingestion");
+            Console.WriteLine(resourceManager.GetString($"CaseE"+"  \n "+"CaseA"));
             var key = Console.ReadKey();
             if (key.Key == ConsoleKey.E)
             {
@@ -58,30 +62,33 @@ namespace Api
 
         private static (Food food,double weight) EnterEating()
         {
-            Console.WriteLine("Enter name of food");
+            var resourceManager = new ResourceManager("Api.Languages.Messages", typeof(Program).Assembly);
+            Console.WriteLine(resourceManager.GetString("EnterName"));
             var food = Console.ReadLine();
             var calories = DoubleParse("calories");
-            var prots = DoubleParse("proteins");
+            //var prots = DoubleParse("proteins");
+            var prots = DoubleParse(resourceManager.GetString("Proteins"));
             var fats = DoubleParse("fats");
             var carbohydrates = DoubleParse("carbohydrates");
             
-            var weight = DoubleParse("weight od food");
+            var weight = DoubleParse("weight of food");
             var product = new Food(food);
             return (food:product, weight : weight);
         }
         private static DateTime DateTimePArse()
         {
+            var resourceManager = new ResourceManager("Api.Languages.Messages", typeof(Program).Assembly);
             DateTime birthday;
             while (true)
             {
-                Console.Write("Enter date of birth day");
+                Console.Write(resourceManager.GetString("BirthDay"));
                 if (DateTime.TryParse(Console.ReadLine(), out birthday))
                 {
                     break;
                 }
                 else
                 {
-                    Console.WriteLine("Invalid type of birth day");
+                    Console.WriteLine(resourceManager.GetString("FormatBd"));
                 }
             }
 
@@ -90,9 +97,11 @@ namespace Api
 
         public static double DoubleParse(string name)
         {
+            var resourceManager = new ResourceManager("Api.Languages.Messages", typeof(Program).Assembly);
             while (true)
             {
-                Console.WriteLine($"Enter {name}");
+                Console.WriteLine(resourceManager.GetString("Enter"+name));
+                //Console.WriteLine($"Enter {name}");
                 if (double.TryParse(Console.ReadLine(), out double value))
                 {
                     return value;
@@ -100,7 +109,8 @@ namespace Api
                 }
                 else
                 {
-                    Console.WriteLine($"Invalid format of {name}");
+                    Console.WriteLine(resourceManager.GetString("Format" + name));
+                    //Console.WriteLine($"Invalid format of {name}");
                 }
             }
 

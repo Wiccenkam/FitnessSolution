@@ -1,6 +1,8 @@
 ﻿using BusinessLogic.Controller;
 using BusinessLogic.Model;
 using System;
+using System.Globalization;
+using System.Resources;
 
 namespace Api
 {
@@ -8,7 +10,9 @@ namespace Api
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Fitness");
+            var calture = CultureInfo.CreateSpecificCulture("eng");
+            var resourceManager = new ResourceManager("Api.Languages.Messages", typeof(Program).Assembly);
+            Console.WriteLine(resourceManager.GetString("Hello")) ;
 
             Console.WriteLine("Enter your name");
 
